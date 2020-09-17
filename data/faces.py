@@ -7,10 +7,10 @@ from PIL import Image
 from torch.utils.data import TensorDataset
 
 class FFHQ(TensorDataset):
-    def __init__(self, data_path, transform, same_person_prob=0.8):
-        self.images = list()
+    def __init__(self, images, transform, same_person_prob=0.8):
+
+        self.images = images
         self.same_person_prob = same_person_prob
-        self.images = glob.glob(f'{data_path}/*.*g')
         self.transform = transform
 
     def __getitem__(self, item):

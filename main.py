@@ -1,11 +1,12 @@
 import click
-
+import glob
 from torch.utils.data import DataLoader
 from torch.optim import Adam
 
 from data.faces import FFHQ
 from data.transforms import transform_train, transform_val
 from trainer import Trainer
+from sklearn.model_selection import train_test_split
 
 @click.command()
 @click.option('--model_dir', default='models/default')
@@ -21,8 +22,12 @@ from trainer import Trainer
 @click.option('--num_workers', default=16)
 def main(model_dir, epochs, train_batch_size, val_batch_size, lr, warmup, max_iters, eval_every, generate_every, save_every, num_workers):
 
-    datasets = {"train": FFHQ("datasets/ffhq", transform_train, same_person_prob=0.5),
-                "val": FFHQ("datasets/ffhq_val", transform_val, same_person_prob=0)}
+    data_paths = glob.glob('/home/ubuntu/data/ffhq_images1024x1024_jpg_aligned256/*/*.*g')
+    train, val = train_test_split(data_paths, test_size=0.01)
+
+
+    datasets = {"train": FFHQ(train, transform_train, same_person_prob=0.5),
+                "val": FFHQ(val, transform_val, same_person_prob=0)}
 
     dataloaders = {'train': DataLoader(datasets['train'], 
                                        batch_size=train_batch_size,
