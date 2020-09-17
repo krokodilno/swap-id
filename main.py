@@ -22,7 +22,7 @@ from sklearn.model_selection import train_test_split
 @click.option('--num_workers', default=16)
 def main(model_dir, epochs, train_batch_size, val_batch_size, lr, warmup, max_iters, eval_every, generate_every, save_every, num_workers):
 
-    data_paths = glob.glob('/home/ubuntu/data/ffhq_images1024x1024_jpg_aligned256/*/*.*g')
+    data_paths = glob.glob('/content/ffhq_images1024x1024_jpg_aligned256/*/*.*g')
     train, val = train_test_split(data_paths, test_size=0.01)
 
 
