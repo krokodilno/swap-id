@@ -21,3 +21,4 @@ test~~.py
 .code-workspace
 .ipynb_checkpoints
 *.rdb
+checkpoints/faceshifter/logs
