@@ -5,7 +5,7 @@ import random
 from math import cos, pi
 from tqdm import tqdm
 import numpy as np
-import visdom
+# import visdom
 
 import torch
 import torchvision
@@ -63,7 +63,7 @@ class Trainer(nn.Module):
         if torch.cuda.is_available():
             self.cuda()
 
-        self.vis = visdom.Visdom(server="127.0.0.1", env="faceshifter", port=8097)
+        #self.vis = visdom.Visdom(server="127.0.0.1", env="faceshifter", port=8097)
 
     @property
     def iter(self):
@@ -264,7 +264,7 @@ class Trainer(nn.Module):
             self.generator.train()
         
         image = make_image(Xs, Xt, Y_hat)
-        self.vis.image(image[::-1, :, :], opts={"title": "result"}, win="result")
+        #self.vis.image(image[::-1, :, :], opts={"title": "result"}, win="result")
         if not os.path.exists(f'results/{self.model_dir}'):
             os.makedirs(f'results/{self.model_dir}')
         cv2.imwrite(f'results/{self.model_dir}/{self.iter}.jpg', image.transpose([1,2,0]))
